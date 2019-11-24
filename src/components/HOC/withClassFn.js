@@ -6,7 +6,7 @@ const withClassFn = (WrappedComponent, classes) => {
             <WrappedComponent {...props}/>
         </div>
     )
-}
+};
 
 export default withClassFn;
 

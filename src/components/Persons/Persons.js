@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { Component }from 'react';
 import Person from './Person/Person';
+import AuthContext  from  '../Context/auth-context';
 
-const Persons = (props) => props.persons.map( (state, index) => {
-      return (
-           <Person name={state.name} age={state.age} key={index} click={() => props.deleteNameHandler(index)}
-             changeName= {(evt) => props.nameChangeHandler(evt, index)}>
-                Testing
-             </Person>
-       )
-     });
+class Persons extends Component {
+   render() {
+        return (
+            this.props.persons.map( (person, index) => {
+                        return (
+                            <Person name={person.name} age={person.age} key={index} click={() => this.props.deleteNameHandler(index)} login={this.props.authenticate}
+                                    changeName= {(evt) => this.props.nameChangeHandler(evt, index)}>
+                            </Person>
+                        )
+                    } )
+        )
 
+   }
+}
 export default Persons;
