@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react';
-
-const style = {
-    backgroundColor: '#006699',
-    font: 'inherit',
-    border: '1px solid blue',
-    padding: '8px',
-    color: '#fff',
-    cursor: 'pointer'
-};
+import React, { useEffect, useRef, useContext } from 'react';
+import AuthContext  from '../Context/auth-context';
+import Style from '../../index.css';
 
 const Cockpit = (props) => {
+    const toggleBtnRef =  useRef(null);
+    const authContext = useContext(AuthContext);
     useEffect( () => {
-        console.log('[cockpitJS], useEffect done');
+
+       console.log('[cockpitJS], useEffect done');
 
        const timer = setTimeout(() => {
             console.log('[cockpitJS], saved data to cloud');
-        }, 1000)
+        }, 1000);
+
+       toggleBtnRef.current.click();
+
         // clean up work in useeffect like ngOnDestroy(angular), componentWillUnmount(react)
         return () => {
            clearTimeout(timer);
@@ -27,9 +26,15 @@ const Cockpit = (props) => {
         <div>
             <h1>{props.title}</h1>
             {/* <button onClick={this.switchNameHandler.bind(this, 'Shankkie')} style={style}>Change Name</button> */}
-            <button onClick={props.togglePersonsHandler} style={style}>Toggle</button>
+            <button ref={toggleBtnRef} onClick={props.togglePersonsHandler} className={'btnBlue'}>Toggle</button>
+            {/*<AuthContext.Consumer>*/}
+            {/*    { (context) =>  <button onClick={context.login} className={'btnRed'}>Authenticate</button>}*/}
+            {/*</AuthContext.Consumer>*/}
+                {  <button onClick={authContext.login} className={'btnRed'}>Authenticate</button>}
+
         </div>
     )
 };
-// reacts stores the snapshot of this component, only when the input changes it will be rendered
+// reacts stores the snapshot of this component, only when the input changes it will be rendered (same like shouldComponentUpdate but this is for functional component)
 export default React.memo(Cockpit);
+// export default Cockpit;
